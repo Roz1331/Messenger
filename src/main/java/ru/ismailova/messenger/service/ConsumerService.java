@@ -1,17 +1,20 @@
 package ru.ismailova.messenger.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import javax.jms.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ConsumerService {
 
     private Connection connection;
     private Session session;
     private Destination destination;
     private MessageConsumer messageConsumer;
-    private List<String> messages;
+    private List<String> messages = new ArrayList<>();
 
     @Autowired
     public ConsumerService(ConnectionFactory connectionFactory) {

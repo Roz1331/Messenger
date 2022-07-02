@@ -2,11 +2,12 @@ package ru.ismailova.messenger.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
-
+@Service
 public class ChatService {
 
     private final ApplicationContext context;
@@ -22,8 +23,8 @@ public class ChatService {
         this.producerService = producerService;
     }
 
-    public boolean UserExist() {
-        return false;
+    public boolean userExists(String userName) {
+        return users.contains(userName);
     }
 
     public void addUser(String name) {
