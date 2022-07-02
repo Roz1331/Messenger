@@ -11,6 +11,11 @@ import javax.jms.ConnectionFactory;
 @SpringBootApplication
 public class MessengerApplication {
 
+	@Bean
+	ActiveMQConnectionFactory connectionFactory() {
+		return new ActiveMQConnectionFactory("vm://localhost");
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(MessengerApplication.class, args);
 	}

@@ -1,23 +1,21 @@
 package ru.ismailova.messenger.service;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.jms.*;
 
 public class ProducerService {
 
-    Connection connection;
-    Session session;
-    Destination destination;
-    MessageProducer messageProducer;
+    private final Connection connection;
+    private Session session;
+    private Destination destination;
+    private MessageProducer messageProducer;
 
     @Autowired
-    public ProducerService() {
+    public ProducerService(ConnectionFactory connectionFactory) {
 
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost");
         try {
             this.connection = connectionFactory.createConnection();
+            connection.start();
             this.session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             this.destination = session.createQueue("MESSENGER");
             this.messageProducer = session.createProducer(destination);
@@ -31,11 +29,11 @@ public class ProducerService {
     public void SendMessage(String message) {
         try {
             TextMessage textMessage = session.createTextMessage(message);
+            messageProducer.send(textMessage);
         } catch (JMSException e) {
             throw new RuntimeException(e);
         }
     }
-
 
     // documentation: https://activemq.apache.org/hello-world
 }
