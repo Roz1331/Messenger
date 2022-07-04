@@ -28,7 +28,7 @@ public class LoginController {
         if(!chatService.userExists(userName)) {
             chatService.addUser(userName);
 
-            return "/messenger?user=" + userName;
+            return "redirect:/messenger?userName=" + userName;
         }
 
         // TODO return some error message

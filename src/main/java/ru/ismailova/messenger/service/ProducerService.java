@@ -29,7 +29,7 @@ public class ProducerService {
 
     }
 
-    public void SendMessage(String message) {
+    public void sendMessage(String message) {
         try {
             TextMessage textMessage = session.createTextMessage(message);
             messageProducer.send(textMessage);

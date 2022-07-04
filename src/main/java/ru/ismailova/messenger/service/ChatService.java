@@ -4,39 +4,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class ChatService {
 
     private final ApplicationContext context;
-    private final ConsumerService consumerService;
     private final ProducerService producerService;
 
-    private final Set<String> users = new HashSet<>();
+    private final Map<String, ConsumerService> users = new HashMap<>();
 
     @Autowired
-    public ChatService(ApplicationContext context, ConsumerService consumerService, ProducerService producerService) {
+    public ChatService(ApplicationContext context, ProducerService producerService) {
         this.context = context;
-        this.consumerService = consumerService;
         this.producerService = producerService;
     }
 
     public boolean userExists(String userName) {
-        return users.contains(userName);
+        return users.containsKey(userName);
     }
 
     public void addUser(String name) {
-        users.add(name);
+        users.put(name, context.getBean(ConsumerService.class));
         // TODO send message about new user
     }
 
     public void deleteUser(String name) {
-        if(users.contains(name)) {
-            users.remove(name);
-        }
+        users.remove(name);
         // TODO send message about removed user
     }
 
+    public void sendMessage(String message) {
+        producerService.sendMessage(message);
+    }
+
+    public List<String> getMessages(String userName) {
+        return users.containsKey(userName) ? users.get(userName).getAllMessages() : new ArrayList<>();
+    }
 }

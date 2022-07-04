@@ -1,6 +1,7 @@
 package ru.ismailova.messenger.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import javax.jms.*;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Scope("prototype")
 public class ConsumerService {
 
     private Connection connection;
