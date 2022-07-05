@@ -6,6 +6,32 @@
     <title>Chat page</title>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="js/index.js"></script>
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            function getMessages(userName) {
+                console.log("start getting messages for " + userName)
+                // $.get('/message/get', { userName: userName})
+                //     .success(function() { console.log('Успешное выполнение'); })
+                //     .error(function(jqXHR) { console.log('Ошибка выполнения'); })
+                //     .complete(function() { console.log('Завершение выполнения'); });
+
+                $.ajax({
+                    method: "GET",
+                    url: "/message/get",
+                    contentType: "application/json; charset=utf-8",
+                    data: {
+                        'userName': userName
+                    },
+
+                    success: function (result) {
+                        console.log('Успешное выполнение')
+                    }
+                });
+            }
+
+            setTimeout(getMessages, 1000, [[${userName}]]);
+        });
+    </script>
 </head>
 <body>
     <p>This is chat page</p>

@@ -10,18 +10,16 @@ public class ProducerService {
 
     private final Connection connection;
     private Session session;
-    private Destination destination;
     private MessageProducer messageProducer;
 
     @Autowired
-    public ProducerService(ConnectionFactory connectionFactory) {
+    public ProducerService(ConnectionFactory connectionFactory, Topic topic) {
 
         try {
             this.connection = connectionFactory.createConnection();
             connection.start();
             this.session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            this.destination = session.createQueue("MESSENGER");
-            this.messageProducer = session.createProducer(destination);
+            this.messageProducer = session.createProducer(topic);
 
         } catch (JMSException e) {
             throw new RuntimeException(e);

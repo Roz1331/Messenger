@@ -10,22 +10,22 @@ import java.util.List;
 
 @Service
 @Scope("prototype")
-public class ConsumerService {
+public class ConsumerService implements MessageListener{
 
     private Connection connection;
     private Session session;
-    private Destination destination;
     private MessageConsumer messageConsumer;
     private List<String> messages = new ArrayList<>();
 
     @Autowired
-    public ConsumerService(ConnectionFactory connectionFactory) {
+    public ConsumerService(ConnectionFactory connectionFactory, Topic topic) {
         try {
             connection = connectionFactory.createConnection();
             connection.start();
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            destination = session.createQueue("MESSENGER");
-            messageConsumer = session.createConsumer(destination);
+            messageConsumer = session.createConsumer(topic);
+
+            messageConsumer.setMessageListener(this);
 
         } catch (JMSException e) {
             throw new RuntimeException(e);
@@ -37,7 +37,12 @@ public class ConsumerService {
         return allMessages;
     }
 
-    public void addMessage(Message message) {
+//    public void addMessage(Message message) {
+//
+//    }
+
+    @Override
+    public void onMessage(Message message) {
         messages.add(message.toString());
     }
 
