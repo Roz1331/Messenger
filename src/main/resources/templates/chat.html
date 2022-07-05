@@ -5,31 +5,27 @@
     <meta charset="UTF-8">
     <title>Chat page</title>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="js/index.js"></script>
     <script th:inline="javascript">
         $(document).ready(function () {
-            function getMessages(userName) {
+
+            $("#sendMessage").click(function () {
+                let userName = [[${userName}]];
+                let messageText = $("#message").val();
+                console.log("start sending message: " + messageText);
+                if (messageText === "") return;
+                $.get('/message/send', { userName: userName, message: messageText}, function(data) {
+                    console.log(data); // ответ от сервера
+                })
+            })
+
+            setInterval(function () {
+                let userName = [[${userName}]];
                 console.log("start getting messages for " + userName)
-                // $.get('/message/get', { userName: userName})
-                //     .success(function() { console.log('Успешное выполнение'); })
-                //     .error(function(jqXHR) { console.log('Ошибка выполнения'); })
-                //     .complete(function() { console.log('Завершение выполнения'); });
+                $.get('/message/get', { userName: userName}, function(data) {
+                    console.log(data); // ответ от сервера
+                })
 
-                $.ajax({
-                    method: "GET",
-                    url: "/message/get",
-                    contentType: "application/json; charset=utf-8",
-                    data: {
-                        'userName': userName
-                    },
-
-                    success: function (result) {
-                        console.log('Успешное выполнение')
-                    }
-                });
-            }
-
-            setTimeout(getMessages, 1000, [[${userName}]]);
+            }, 2000);
         });
     </script>
 </head>
@@ -37,11 +33,11 @@
     <p>This is chat page</p>
     <h2 th:text="'Hello, ' + ${userName}"/>
     <div class="container">
-        <form>
+        <form onsubmit="return false;">
             <div>
                 <input type="text" id="message" placeholder="type your message here.."/>
             </div>
-            <button id="sendMessage" type="button" th:onclick= "sendMes([[${userName}]]);">Send</button>
+            <button id="sendMessage">Send</button>
         </form>
     </div>
 </body>
