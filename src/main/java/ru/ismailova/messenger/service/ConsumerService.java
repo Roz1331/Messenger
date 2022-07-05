@@ -1,5 +1,6 @@
 package ru.ismailova.messenger.service;
 
+import org.apache.activemq.command.ActiveMQTextMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,7 @@ public class ConsumerService implements MessageListener{
 
     public List<String> getAllMessages() {
         List<String> allMessages = new ArrayList<>(messages);
+        messages.clear();
         return allMessages;
     }
 
@@ -43,9 +45,16 @@ public class ConsumerService implements MessageListener{
 
     @Override
     public void onMessage(Message message) {
-        messages.add(message.toString());
+        try {
+            ActiveMQTextMessage textMessage = (ActiveMQTextMessage) message;
+            String json = textMessage.getText();
+            messages.add(json);
+        } catch (JMSException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
-    // documentation: https://activemq.apache.org/hello-world
+    // https://activemq.apache.org/hello-world
 
 }

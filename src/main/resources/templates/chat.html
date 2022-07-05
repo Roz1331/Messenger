@@ -14,7 +14,7 @@
                 console.log("start sending message: " + messageText);
                 if (messageText === "") return;
                 $.get('/message/send', { userName: userName, message: messageText}, function(data) {
-                    console.log(data); // ответ от сервера
+                    console.log("message was sent");
                 })
             })
 
@@ -22,9 +22,15 @@
                 let userName = [[${userName}]];
                 console.log("start getting messages for " + userName)
                 $.get('/message/get', { userName: userName}, function(data) {
-                    console.log(data); // ответ от сервера
+                    data.forEach(function(element) {
+                        console.log(element)
+                        let newMessage = document.createElement("p")
+                        let text = document.createTextNode(element)
+                        newMessage.appendChild(text)
+                        let messagesList = document.getElementById("messages")
+                        messagesList.appendChild(newMessage)
+                    })
                 })
-
             }, 2000);
         });
     </script>
@@ -33,6 +39,11 @@
     <p>This is chat page</p>
     <h2 th:text="'Hello, ' + ${userName}"/>
     <div class="container">
+
+        <div class="messages" id="messages">
+
+        </div>
+
         <form onsubmit="return false;">
             <div>
                 <input type="text" id="message" placeholder="type your message here.."/>
