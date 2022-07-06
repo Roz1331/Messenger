@@ -1,4 +1,29 @@
 
+.page-section {
+    margin: 100px auto;
+    max-width: 1920px;
+}
+
+.container, header {
+    max-width: 1230px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+.container {
+    margin-top: 70px;
+}
+
+.message-container,
+.message-header{
+    max-width: 600px;
+    margin: auto;
+}
+
+.message-form {
+    position: fixed;
+    bottom: 30px;
+}
+
 .right {
     text-align: right;
 }
@@ -6,3 +31,14 @@
 .left {
     text-align: left;
 }
+
+#message {
+    width: 450px;
+    padding: 10px;
+}
+
+#sendMessage {
+    margin-left: 20px;
+    padding: 10px 40px;
+}
+

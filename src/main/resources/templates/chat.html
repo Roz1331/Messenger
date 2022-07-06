@@ -18,6 +18,7 @@
                 if (messageText === "") return;
                 $.get('/message/send', { userName: userName, message: messageText}, function(data) {
                     console.log("message was sent");
+                    $("#message").val("")
                 })
             })
 
@@ -36,6 +37,7 @@
                             newMessage.setAttribute("class", "right")
                         }
                         else {
+                            textMessage = sender + ": " + textMessage
                             newMessage.setAttribute("class", "left")
                         }
 
@@ -50,20 +52,23 @@
     </script>
 </head>
 <body>
-    <p>This is chat page</p>
-    <h2 th:text="'Hello, ' + ${userName}"/>
+<section class="page-section">
+    <header class="message-header">
+        <h2 th:text="'Hello, ' + ${userName}"/>
+    </header>
     <div class="container">
 
-        <div class="messages" id="messages">
+        <div class="message-container">
+            <div class="messages" id="messages"></div>
 
+            <form class="message-form" onsubmit="return false;">
+                <input type="text" id="message" placeholder="type your message here.."/>
+                <button id="sendMessage">Send</button>
+            </form>
         </div>
 
-        <form onsubmit="return false;">
-            <div>
-                <input type="text" id="message" placeholder="type your message here.."/>
-            </div>
-            <button id="sendMessage">Send</button>
-        </form>
     </div>
+</section>
+
 </body>
 </html>

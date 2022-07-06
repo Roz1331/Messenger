@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome page</title>
+    <link rel="stylesheet" th:href="@{css/main.css}"/>
 </head>
 <body>
-    <div>
-        <p>Hello!</p>
+<section class="page-section">
+    <div class="container">
+        <div>
+            <p>Hello to the best messenger ever!</p>
+            <p>To start messaging you have to login first</p>
+        </div>
+        <a href="/login">Login</a>
     </div>
-    <a href="/login">Login</a>
+
+</section>
+
 </body>
 </html>
