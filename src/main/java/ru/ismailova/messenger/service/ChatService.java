@@ -34,8 +34,8 @@ public class ChatService {
         // TODO send message about removed user
     }
 
-    public void sendMessage(String message) {
-        producerService.sendMessage(message);
+    public void sendMessage(String userName, String message) {
+        producerService.sendMessage(String.format("%s:%s", userName, message));
     }
 
     public List<String> getMessages(String userName) {

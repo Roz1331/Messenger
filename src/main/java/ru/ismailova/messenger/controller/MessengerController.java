@@ -21,7 +21,7 @@ public class MessengerController {
     @GetMapping("message/send")
     public void sendMessage(@RequestParam(value = "userName") String userName,
                             @RequestParam(value = "message") String message) {
-        chatService.sendMessage(message);
+        chatService.sendMessage(userName, message);
     }
 
     @GetMapping("message/get")
