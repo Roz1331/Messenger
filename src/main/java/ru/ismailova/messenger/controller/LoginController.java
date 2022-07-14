@@ -20,7 +20,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String getLoginPage() {
-        return "login";
+        return "login_old";
     }
 
     @PostMapping("/login")
@@ -32,6 +32,6 @@ public class LoginController {
         }
 
         // TODO return some error message
-        return "login";
+        return "login_old";
     }
 }

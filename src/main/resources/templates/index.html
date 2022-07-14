@@ -1,21 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Welcome page</title>
-    <link rel="stylesheet" th:href="@{css/main.css}"/>
+    <title>Главная</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<!--    <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/style.css">-->
 </head>
 <body>
-<section class="page-section">
-    <div class="container">
-        <div>
-            <p>Hello to the best messenger ever!</p>
-            <p>To start messaging you have to login first</p>
-        </div>
-        <a href="/login">Login</a>
+<div>
+<!--    TODO метод isAuthenticated - посмотреть, как использовать в thymeleaf-->
+    <h3>${pageContext.request.userPrincipal.name}</h3>
+<!--    <div sec:authorize access="!isAuthenticated()">-->
+    <div sec:authorize="!isAuthenticated()">
+        <h4><a href="/login">Войти</a></h4>
+        <h4><a href="/registration">Зарегистрироваться</a></h4>
     </div>
-
-</section>
-
+    <div sec:authorize="isAuthenticated()">
+        <h4><a href="/logout">Выйти</a></h4>
+    </div>
+    <h4><a href="/news">Новости (только пользователь)</a></h4>
+    <h4><a href="/admin">Пользователи (только админ)</a></h4>
+</div>
 </body>
 </html>
