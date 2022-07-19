@@ -37,7 +37,11 @@ $(document).ready(function () {
                 messagesList.appendChild(newMessage)
             })
         })
-    }, 2000);
+            .fail(function (data) {
+                console.log("failed((((((((((");
+                console.log(data);
+            })
+    }, 1000);
 });
 // http://www.jetsource.ru/scripts/javascript_jquery/otpravka_post_i_get_zaprosov
 

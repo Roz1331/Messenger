@@ -1,6 +1,7 @@
 package ru.ismailova.messenger.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +35,7 @@ public class LoginController {
 //        User user = new User();
 //        user.setPasswordConfirm("confirmed");
 //        model.addAttribute("userLoginForm", user);
+
         System.out.println("login get method");
         return "login";
     }
