@@ -10,30 +10,22 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "t_user")
 public class User implements UserDetails {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Size(min=2, message="логин должен состоять не менее, чем из 2 знаков")
+    @Size(min=2, message = "Не меньше 5 знаков")
     private String username;
-    @Size(min=2, message="пароль должен состоять не менее, чем из 2 знаков")
+    @Size(min=2, message = "Не меньше 5 знаков")
     private String password;
     @Transient
     private String passwordConfirm;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    public User() {}
-
-//    public User(Long id, String username, String password, String passwordConfirm, Set<Role> roles) {
-//        this.id = id;
-//        this.username = username;
-//        this.password = password;
-//        this.passwordConfirm = passwordConfirm;
-//        this.roles = roles;
-//    }
+    public User() {
+    }
 
     public Long getId() {
         return id;
@@ -50,22 +42,22 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     public void setUsername(String username) {
@@ -101,4 +93,5 @@ public class User implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
 }

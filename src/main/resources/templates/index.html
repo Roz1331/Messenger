@@ -9,13 +9,17 @@
 <body>
 <div>
 <!--    TODO метод isAuthenticated - посмотреть, как использовать в thymeleaf-->
-    <h3>${pageContext.request.userPrincipal.name}</h3>
+<!--    <h3>${pageContext.request.userPrincipal.name}</h3>-->
 <!--    <div sec:authorize access="!isAuthenticated()">-->
     <div sec:authorize="!isAuthenticated()">
         <h4><a href="/login">Войти</a></h4>
         <h4><a href="/registration">Зарегистрироваться</a></h4>
     </div>
     <div sec:authorize="isAuthenticated()">
+<!--        <span th:text ="${#authentication.getPrincipal().getUsername()}"></span>-->
+        <h2 th:text="'Hello, ' + ${#authentication.getPrincipal().getUsername()}"/>
+<!--        <h4><a th:with="userName=${#authentication.getPrincipal().getUsername()}" href="/chat">Chat</a></h4>-->
+        <h4><a href="/chat">Chat</a></h4>
         <h4><a href="/logout">Выйти</a></h4>
     </div>
     <h4><a href="/news">Новости (только пользователь)</a></h4>

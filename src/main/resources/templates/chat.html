@@ -16,7 +16,7 @@
 <body>
 <section class="page-section">
     <header class="message-header">
-        <h2 th:text="'Hello, ' + ${userName}"/>
+        <h2 th:text="'Hello, ' + ${#authentication.getPrincipal().getUsername()}"/>
     </header>
     <div class="container">
 
