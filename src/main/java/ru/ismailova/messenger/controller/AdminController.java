@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.ismailova.messenger.entity.User;
 import ru.ismailova.messenger.service.UserService;
+import java.util.List;
+import java.awt.*;
 
 @Controller
 public class AdminController {
@@ -16,7 +19,8 @@ public class AdminController {
 
     @GetMapping("/admin")
     public String userList(Model model) {
-        model.addAttribute("allUsers", userService.allUsers());
+        List<User> list_user = userService.allUsers();
+        model.addAttribute("allUsers", list_user);
         return "admin";
     }
 

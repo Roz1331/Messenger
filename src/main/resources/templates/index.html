@@ -8,7 +8,6 @@
 </head>
 <body>
 <div>
-<!--    TODO метод isAuthenticated - посмотреть, как использовать в thymeleaf-->
 <!--    <h3>${pageContext.request.userPrincipal.name}</h3>-->
 <!--    <div sec:authorize access="!isAuthenticated()">-->
     <div sec:authorize="!isAuthenticated()">
@@ -22,8 +21,9 @@
         <h4><a href="/chat">Chat</a></h4>
         <h4><a href="/logout">Выйти</a></h4>
     </div>
-    <h4><a href="/news">Новости (только пользователь)</a></h4>
-    <h4><a href="/admin">Пользователи (только админ)</a></h4>
+    <h4><a sec:authorize="hasRole('ROLE_USER')" href="/news">Новости</a></h4>
+    <h4><a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin">Пользователи</a></h4>
+
 </div>
 </body>
 </html>
